@@ -9,13 +9,14 @@ const githubApi = axios.create({
 })
 
 // --- Types ---
+
 export interface WeeklyActivity {
     week: number // Unix timestamp (seconds) for start of week
     total: number // total commits in that week
     days: number[] // commits each day, starting on Sunday
 }
 
-export interface ChartPoint {
+export interface DayCount {
     date: string // ISO date string "YYYY-MM-DD"
     count: number // commits in that period
 }
@@ -52,8 +53,8 @@ async function fetchWeeklyActivity(
 /**
  * Convert weekly activity to daily chart points for last 90 days
  */
-export function weeklyToDailyChart(data: WeeklyActivity[]): ChartPoint[] {
-    const dailyPoints: ChartPoint[] = []
+export function weeklyToDailyChart(data: WeeklyActivity[]): DayCount[] {
+    const dailyPoints: DayCount[] = []
     const now = new Date()
     const ninetyDaysAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
 
